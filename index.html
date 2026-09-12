@@ -12,12 +12,12 @@
       background-color: #0d131a;
       color: #e6edf3;
       font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      padding: 25px 35px;
+      padding: 18px 25px;
       overflow: hidden;
       -webkit-user-select: none;
     }
     
-    /* En-tête : Date & Horloge */
+    /* En-tête : Ville, Date & Horloge */
     .header {
       display: -webkit-flex;
       display: flex;
@@ -26,33 +26,41 @@
       -webkit-align-items: flex-end;
       align-items: flex-end;
       border-bottom: 2px solid #21262d;
-      padding-bottom: 15px;
+      padding-bottom: 10px;
     }
     .city-date .city {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
       color: #58a6ff;
       letter-spacing: 1px;
       text-transform: uppercase;
     }
     .city-date .date {
-      font-size: 20px;
+      font-size: 19px;
       color: #8b949e;
-      margin-top: 4px;
+      margin-top: 3px;
     }
     .clock {
-      font-size: 56px;
+      font-size: 50px;
       font-weight: 300;
       letter-spacing: 2px;
       color: #f0f6fc;
+      line-height: 1;
     }
 
-    /* Météo actuelle */
+    /* Ligne centrale : Météo actuelle + Encart H+4 */
+    .middle-row {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      margin: 15px 0;
+    }
     .current-card {
-      margin: 25px 0;
+      width: 71%;
       background: #161b22;
       border-radius: 12px;
-      padding: 25px 35px;
+      padding: 18px 25px;
       display: -webkit-flex;
       display: flex;
       -webkit-align-items: center;
@@ -67,11 +75,10 @@
       -webkit-align-items: center;
       align-items: center;
     }
-    /* Icône météo actuelle */
     .current-icon {
-      width: 110px;
-      height: 110px;
-      margin-right: 25px;
+      width: 100px;
+      height: 100px;
+      margin-right: 22px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
     }
@@ -81,27 +88,78 @@
       display: block;
     }
     .current-temp {
-      font-size: 70px;
+      font-size: 78px;
       font-weight: 700;
       line-height: 1;
       color: #ffffff;
     }
     .current-condition {
-      font-size: 26px;
+      font-size: 22px;
       color: #8b949e;
-      margin-top: 8px;
+      margin-top: 6px;
     }
     .current-details {
       text-align: right;
-      font-size: 22px;
+      font-size: 19px;
       color: #c9d1d9;
-      line-height: 1.8;
+      line-height: 1.7;
     }
     .current-details strong {
       color: #58a6ff;
     }
 
-    /* Prévisions sur 5 jours */
+    /* Encart H+4 */
+    .plus4-card {
+      width: 27%;
+      background: #161b22;
+      border-radius: 12px;
+      padding: 15px 18px;
+      border: 1px solid #30363d;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      text-align: center;
+    }
+    .plus4-header {
+      font-size: 15px;
+      font-weight: 700;
+      color: #58a6ff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .plus4-body {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      margin: 6px 0;
+    }
+    .plus4-icon {
+      width: 58px;
+      height: 58px;
+      margin-right: 12px;
+    }
+    .plus4-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .plus4-temp {
+      font-size: 42px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .plus4-desc {
+      font-size: 17px;
+      color: #8b949e;
+    }
+
+    /* Prévisions sur 4 jours */
     .forecast-grid {
       display: -webkit-flex;
       display: flex;
@@ -111,30 +169,34 @@
     .forecast-day {
       background: #161b22;
       border: 1px solid #30363d;
-      border-radius: 10px;
-      width: 18.5%;
-      padding: 12px 5px; /* réduit légèrement en hauteur pour compenser */
-      text-align: center;
+      border-radius: 12px;
+      width: 23.8%;
+      padding: 15px 12px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
     }
-    .forecast-name {
-      font-size: 20px;
-      font-weight: 600;
-      color: #f0f6fc;
-      text-transform: capitalize;
+    .day-head {
+      border-bottom: 1px solid #21262d;
+      padding-bottom: 8px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: baseline;
+      align-items: baseline;
     }
-    /* Icônes prévisions 5 jours */
-    .forecast-icon {
-      width: 65px;
-      height: 65px;
-      margin: 10px auto;
+    .day-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #58a6ff;
+      text-transform: uppercase;
     }
-    .forecast-icon svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-    .forecast-temps {
-      font-size: 20px;
+    .day-range {
+      font-size: 17px;
     }
     .temp-max {
       font-weight: 700;
@@ -142,7 +204,48 @@
     }
     .temp-min {
       color: #79c0ff;
-      margin-left: 8px;
+      margin-left: 6px;
+    }
+
+    /* Sous-blocs Matin & Après-midi */
+    .slot-card {
+      background: #0d131a;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+    .slot-badge {
+      font-size: 13px;
+      font-weight: 600;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .slot-body {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+    }
+    .slot-icon {
+      width: 48px;
+      height: 48px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+    }
+    .slot-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .slot-temp {
+      font-size: 30px;
+      font-weight: 700;
+      color: #f0f6fc;
     }
   </style>
 </head>
@@ -156,34 +259,48 @@
     <div class="clock" id="clock">--:--:--</div>
   </div>
 
-  <div class="current-card">
-    <div class="current-left">
-      <div class="current-icon" id="current-icon">⏳</div>
-      <div>
-        <div class="current-temp" id="current-temp">--°</div>
-        <div class="current-condition" id="current-desc">Chargement...</div>
+  <div class="middle-row">
+    <!-- Météo en direct -->
+    <div class="current-card">
+      <div class="current-left">
+        <div class="current-icon" id="current-icon">⏳</div>
+        <div>
+          <div class="current-temp" id="current-temp">--°</div>
+          <div class="current-condition" id="current-desc">Chargement...</div>
+        </div>
+      </div>
+      <div class="current-details">
+        <div>Humidité : <strong id="current-humidity">-- %</strong></div>
+        <div>Vent : <strong id="current-wind">-- km/h</strong></div>
+        <div>Aujourd'hui : <strong id="today-range">--° / --°</strong></div>
       </div>
     </div>
-    <div class="current-details">
-      <div>Humidité : <strong id="current-humidity">-- %</strong></div>
-      <div>Vent : <strong id="current-wind">-- km/h</strong></div>
-      <div>Max / Min : <strong id="today-range">--° / --°</strong></div>
+
+    <!-- Météo dans 4 heures -->
+    <div class="plus4-card">
+      <div class="plus4-header">Dans 4h (<span id="plus4-time">--:--</span>)</div>
+      <div class="plus4-body">
+        <div class="plus4-icon" id="plus4-icon"></div>
+        <div class="plus4-temp" id="plus4-temp">--°</div>
+      </div>
+      <div class="plus4-desc" id="plus4-desc">Chargement...</div>
     </div>
   </div>
 
+  <!-- Prévisions 4 jours x 2 créneaux -->
   <div class="forecast-grid" id="forecast-container">
     <!-- Rempli par JavaScript -->
   </div>
 
   <script>
-    // Configuration géographique (Montpellier par défaut)
+    // Configuration géographique
     var LAT = 43.6108;
     var LON = 3.8767;
     var CITY = "Montpellier";
 
     document.getElementById("city-name").innerText = CITY;
 
-    // Horloge temps réel
+    // Horloge
     var daysFR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     var monthsFR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 
@@ -203,7 +320,7 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Dictionnaire SVG vectoriel universel (100 % compatible iOS 9)
+    // Dictionnaire SVG vectoriel
     var ICONS = {
       sun: '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="14" fill="#fbc02d"/><g stroke="#fbc02d" stroke-width="4" stroke-linecap="round"><line x1="32" y1="6" x2="32" y2="12"/><line x1="32" y1="52" x2="32" y2="58"/><line x1="6" y1="32" x2="12" y2="32"/><line x1="52" y1="32" x2="58" y2="32"/><line x1="14" y1="14" x2="18" y2="18"/><line x1="46" y1="46" x2="50" y2="50"/><line x1="14" y1="50" x2="18" y2="46"/><line x1="46" y1="18" x2="50" y2="14"/></g></svg>',
       sun_cloud: '<svg viewBox="0 0 64 64"><circle cx="25" cy="25" r="11" fill="#fbc02d"/><g stroke="#fbc02d" stroke-width="3" stroke-linecap="round"><line x1="25" y1="6" x2="25" y2="10"/><line x1="11.5" y1="11.5" x2="14.5" y2="14.5"/><line x1="6" y1="25" x2="10" y2="25"/></g><path d="M25 48h22a10 10 0 0 0 1-19.9 13 13 0 0 0-25-2.6A10 10 0 0 0 25 48z" fill="#90a4ae"/></svg>',
@@ -229,69 +346,131 @@
       return { desc: "Variable", icon: ICONS.sun_cloud };
     }
 
-    // Récupération des données via XMLHttpRequest (compatible iOS 9)
+    // Récupération des données Open-Meteo
     function fetchWeather() {
-  var url = "https://api.open-meteo.com/v1/forecast?latitude=" + LAT + 
-            "&longitude=" + LON + 
-            "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m" + 
-            "&daily=weather_code,temperature_2m_max,temperature_2m_min" + 
-            "&timezone=auto";
+      var url = "https://api.open-meteo.com/v1/forecast?latitude=" + LAT + 
+                "&longitude=" + LON + 
+                "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m" + 
+                "&hourly=temperature_2m,weather_code" + 
+                "&daily=weather_code,temperature_2m_max,temperature_2m_min" + 
+                "&timezone=auto";
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", url, true);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        var data = JSON.parse(xhr.responseText);
-        renderWeather(data);
-      } else {
-        document.getElementById("current-desc").innerText = "Erreur HTTP " + xhr.status;
-      }
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            renderWeather(data);
+          } else {
+            document.getElementById("current-desc").innerText = "Erreur HTTP " + xhr.status;
+          }
+        }
+      };
+      xhr.onerror = function() {
+        document.getElementById("current-desc").innerText = "Erreur réseau / SSL";
+      };
+      xhr.send();
     }
-  };
-  xhr.onerror = function() {
-    document.getElementById("current-desc").innerText = "Erreur réseau / SSL";
-  };
-  xhr.send();
-}
 
     function renderWeather(data) {
       var cur = data.current;
       var daily = data.daily;
+      var hourly = data.hourly;
       var curWMO = parseWMO(cur.weather_code);
 
-      // Données actuelles
+      // 1. Météo actuelle
       document.getElementById("current-temp").innerText = Math.round(cur.temperature_2m) + "°";
       document.getElementById("current-desc").innerText = curWMO.desc;
-      document.getElementById("current-icon").innerHTML = curWMO.icon; 
+      document.getElementById("current-icon").innerHTML = curWMO.icon;
       document.getElementById("current-humidity").innerText = cur.relative_humidity_2m + " %";
       document.getElementById("current-wind").innerText = Math.round(cur.wind_speed_10m) + " km/h";
       document.getElementById("today-range").innerText = Math.round(daily.temperature_2m_max[0]) + "° / " + Math.round(daily.temperature_2m_min[0]) + "°";
 
-      // Prévisions à 5 jours (de J+1 à J+5)
-      var shortDays = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+      // 2. Encart H+4
+      var curPrefix = cur.time.substr(0, 13);
+      var curIdx = -1;
+      for (var i = 0; i < hourly.time.length; i++) {
+        if (hourly.time[i].indexOf(curPrefix) === 0) {
+          curIdx = i;
+          break;
+        }
+      }
+      var targetIdx = (curIdx !== -1 && curIdx + 4 < hourly.time.length) ? (curIdx + 4) : 4;
+      var plus4Hour = hourly.time[targetIdx].substr(11, 5);
+      var plus4WMO = parseWMO(hourly.weather_code[targetIdx]);
+      
+      document.getElementById("plus4-time").innerText = plus4Hour;
+      document.getElementById("plus4-temp").innerText = Math.round(hourly.temperature_2m[targetIdx]) + "°";
+      document.getElementById("plus4-icon").innerHTML = plus4WMO.icon;
+      document.getElementById("plus4-desc").innerText = plus4WMO.desc;
+
+      // 3. Prévisions sur 4 jours (J+1 à J+4) avec créneaux Matin et Après-midi
+      var shortDays = ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."];
       var html = "";
 
-      for (var i = 1; i <= 5; i++) {
-        var dayDate = new Date(daily.time[i]);
-        var dayName = shortDays[dayDate.getDay()];
-        var wmo = parseWMO(daily.weather_code[i]);
-        var tMax = Math.round(daily.temperature_2m_max[i]);
-        var tMin = Math.round(daily.temperature_2m_min[i]);
+      for (var d = 1; d <= 4; d++) {
+        var dateStr = daily.time[d];
+        var parts = dateStr.split("-");
+        var dDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        var dayName = shortDays[dDate.getDay()] + " " + dDate.getDate();
+        
+        var tMax = Math.round(daily.temperature_2m_max[d]);
+        var tMin = Math.round(daily.temperature_2m_min[d]);
+
+        // Recherche des heures de 9h et 15h
+        var mornTarget = dateStr + "T09:00";
+        var aftTarget = dateStr + "T15:00";
+        var mornTemp = "--", mornIcon = "", aftTemp = "--", aftIcon = "";
+
+        for (var h = 0; h < hourly.time.length; h++) {
+          if (hourly.time[h] === mornTarget) {
+            mornTemp = Math.round(hourly.temperature_2m[h]) + "°";
+            mornIcon = parseWMO(hourly.weather_code[h]).icon;
+          }
+          if (hourly.time[h] === aftTarget) {
+            aftTemp = Math.round(hourly.temperature_2m[h]) + "°";
+            aftIcon = parseWMO(hourly.weather_code[h]).icon;
+          }
+        }
+
+        // Valeurs de repli si l'horaire précis n'est pas trouvé
+        if (!mornIcon) {
+          mornIcon = parseWMO(daily.weather_code[d]).icon;
+          mornTemp = tMin + "°";
+        }
+        if (!aftIcon) {
+          aftIcon = parseWMO(daily.weather_code[d]).icon;
+          aftTemp = tMax + "°";
+        }
 
         html += '<div class="forecast-day">' +
-                  '<div class="forecast-name">' + dayName + '</div>' +
-                  '<div class="forecast-icon">' + wmo.icon + '</div>' +
-                  '<div class="forecast-temps">' +
-                    '<span class="temp-max">' + tMax + '°</span>' +
-                    '<span class="temp-min">' + tMin + '°</span>' +
+                  '<div class="day-head">' +
+                    '<div class="day-name">' + dayName + '</div>' +
+                    '<div class="day-range">' +
+                      '<span class="temp-max">' + tMax + '°</span>' +
+                      '<span class="temp-min">' + tMin + '°</span>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div class="slot-card">' +
+                    '<div class="slot-badge">Matin (9h)</div>' +
+                    '<div class="slot-body">' +
+                      '<div class="slot-icon">' + mornIcon + '</div>' +
+                      '<div class="slot-temp">' + mornTemp + '</div>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div class="slot-card">' +
+                    '<div class="slot-badge">Après-midi (15h)</div>' +
+                    '<div class="slot-body">' +
+                      '<div class="slot-icon">' + aftIcon + '</div>' +
+                      '<div class="slot-temp">' + aftTemp + '</div>' +
+                    '</div>' +
                   '</div>' +
                 '</div>';
       }
       document.getElementById("forecast-container").innerHTML = html;
     }
 
-    // Lancement et rafraîchissement toutes les 30 minutes
     fetchWeather();
     setInterval(fetchWeather, 30 * 60 * 1000);
   </script>
