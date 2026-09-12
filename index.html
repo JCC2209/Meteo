@@ -204,22 +204,29 @@
 
     // Récupération des données via XMLHttpRequest (compatible iOS 9)
     function fetchWeather() {
-      var url = "https://api.open-meteo.com/v1/forecast?latitude=" + LAT + 
-                "&longitude=" + LON + 
-                "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m" + 
-                "&daily=weather_code,temperature_2m_max,temperature_2m_min" + 
-                "&timezone=auto";
+  var url = "https://api.open-meteo.com/v1/forecast?latitude=" + LAT + 
+            "&longitude=" + LON + 
+            "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m" + 
+            "&daily=weather_code,temperature_2m_max,temperature_2m_min" + 
+            "&timezone=auto";
 
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", url, true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var data = JSON.parse(xhr.responseText);
-          renderWeather(data);
-        }
-      };
-      xhr.send();
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText);
+        renderWeather(data);
+      } else {
+        document.getElementById("current-desc").innerText = "Erreur HTTP " + xhr.status;
+      }
     }
+  };
+  xhr.onerror = function() {
+    document.getElementById("current-desc").innerText = "Erreur réseau / SSL";
+  };
+  xhr.send();
+}
 
     function renderWeather(data) {
       var cur = data.current;
