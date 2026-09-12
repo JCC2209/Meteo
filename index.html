@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Station Météo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0d131a;
+      color: #e6edf3;
+      font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      padding: 25px 35px;
+      overflow: hidden;
+      -webkit-user-select: none;
+    }
+    
+    /* En-tête : Date & Horloge */
+    .header {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: flex-end;
+      align-items: flex-end;
+      border-bottom: 2px solid #21262d;
+      padding-bottom: 15px;
+    }
+    .city-date .city {
+      font-size: 28px;
+      font-weight: 700;
+      color: #58a6ff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .city-date .date {
+      font-size: 20px;
+      color: #8b949e;
+      margin-top: 4px;
+    }
+    .clock {
+      font-size: 56px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: #f0f6fc;
+    }
+
+    /* Météo actuelle */
+    .current-card {
+      margin: 25px 0;
+      background: #161b22;
+      border-radius: 12px;
+      padding: 25px 35px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      border: 1px solid #30363d;
+    }
+    .current-left {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    .current-icon {
+      font-size: 85px;
+      margin-right: 30px;
+    }
+    .current-temp {
+      font-size: 96px;
+      font-weight: 700;
+      line-height: 1;
+      color: #ffffff;
+    }
+    .current-condition {
+      font-size: 26px;
+      color: #8b949e;
+      margin-top: 8px;
+    }
+    .current-details {
+      text-align: right;
+      font-size: 22px;
+      color: #c9d1d9;
+      line-height: 1.8;
+    }
+    .current-details strong {
+      color: #58a6ff;
+    }
+
+    /* Prévisions sur 5 jours */
+    .forecast-grid {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+    }
+    .forecast-day {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      width: 18.5%;
+      padding: 18px 10px;
+      text-align: center;
+    }
+    .forecast-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: #f0f6fc;
+      text-transform: capitalize;
+    }
+    .forecast-icon {
+      font-size: 44px;
+      margin: 12px 0;
+    }
+    .forecast-temps {
+      font-size: 20px;
+    }
+    .temp-max {
+      font-weight: 700;
+      color: #ff7b72;
+    }
+    .temp-min {
+      color: #79c0ff;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="city-date">
+      <div class="city" id="city-name">Montpellier</div>
+      <div class="date" id="current-date">--</div>
+    </div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+
+  <div class="current-card">
+    <div class="current-left">
+      <div class="current-icon" id="current-icon">⏳</div>
+      <div>
+        <div class="current-temp" id="current-temp">--°</div>
+        <div class="current-condition" id="current-desc">Chargement...</div>
+      </div>
+    </div>
+    <div class="current-details">
+      <div>Humidité : <strong id="current-humidity">-- %</strong></div>
+      <div>Vent : <strong id="current-wind">-- km/h</strong></div>
+      <div>Max / Min : <strong id="today-range">--° / --°</strong></div>
+    </div>
+  </div>
+
+  <div class="forecast-grid" id="forecast-container">
+    <!-- Rempli par JavaScript -->
+  </div>
+
+  <script>
+    // Configuration géographique (Montpellier par défaut)
+    var LAT = 43.6108;
+    var LON = 3.8767;
+    var CITY = "Montpellier";
+
+    document.getElementById("city-name").innerText = CITY;
+
+    // Horloge temps réel
+    var daysFR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    var monthsFR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+
+    function updateClock() {
+      var now = new Date();
+      var h = now.getHours();
+      var m = now.getMinutes();
+      var s = now.getSeconds();
+      
+      h = (h < 10 ? "0" : "") + h;
+      m = (m < 10 ? "0" : "") + m;
+      s = (s < 10 ? "0" : "") + s;
+
+      document.getElementById("clock").innerText = h + ":" + m + ":" + s;
+      document.getElementById("current-date").innerText = daysFR[now.getDay()] + " " + now.getDate() + " " + monthsFR[now.getMonth()];
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Interprétation des codes WMO Open-Meteo
+    function parseWMO(code) {
+      if (code === 0) return { desc: "Ensoleillé", icon: "☀️" };
+      if (code === 1 || code === 2) return { desc: "Éclaircies", icon: "🌤️" };
+      if (code === 3) return { desc: "Couvert", icon: "☁️" };
+      if (code === 45 || code === 48) return { desc: "Brouillard", icon: "🌫️" };
+      if (code >= 51 && code <= 57) return { desc: "Bruine", icon: "🌦️" };
+      if (code >= 61 && code <= 67) return { desc: "Pluie", icon: "🌧️" };
+      if (code >= 71 && code <= 77) return { desc: "Neige", icon: "❄️" };
+      if (code >= 80 && code <= 82) return { desc: "Averses", icon: "🌧️" };
+      if (code >= 85 && code <= 86) return { desc: "Neige forte", icon: "🌨️" };
+      if (code >= 95 && code <= 99) return { desc: "Orage", icon: "⛈️" };
+      return { desc: "Variable", icon: "🌤️" };
+    }
+
+    // Récupération des données via XMLHttpRequest (compatible iOS 9)
+    function fetchWeather() {
+      var url = "https://api.open-meteo.com/v1/forecast?latitude=" + LAT + 
+                "&longitude=" + LON + 
+                "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m" + 
+                "&daily=weather_code,temperature_2m_max,temperature_2m_min" + 
+                "&timezone=auto";
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          renderWeather(data);
+        }
+      };
+      xhr.send();
+    }
+
+    function renderWeather(data) {
+      var cur = data.current;
+      var daily = data.daily;
+      var curWMO = parseWMO(cur.weather_code);
+
+      // Données actuelles
+      document.getElementById("current-temp").innerText = Math.round(cur.temperature_2m) + "°";
+      document.getElementById("current-desc").innerText = curWMO.desc;
+      document.getElementById("current-icon").innerText = curWMO.icon;
+      document.getElementById("current-humidity").innerText = cur.relative_humidity_2m + " %";
+      document.getElementById("current-wind").innerText = Math.round(cur.wind_speed_10m) + " km/h";
+      document.getElementById("today-range").innerText = Math.round(daily.temperature_2m_max[0]) + "° / " + Math.round(daily.temperature_2m_min[0]) + "°";
+
+      // Prévisions à 5 jours (de J+1 à J+5)
+      var shortDays = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+      var html = "";
+
+      for (var i = 1; i <= 5; i++) {
+        var dayDate = new Date(daily.time[i]);
+        var dayName = shortDays[dayDate.getDay()];
+        var wmo = parseWMO(daily.weather_code[i]);
+        var tMax = Math.round(daily.temperature_2m_max[i]);
+        var tMin = Math.round(daily.temperature_2m_min[i]);
+
+        html += '<div class="forecast-day">' +
+                  '<div class="forecast-name">' + dayName + '</div>' +
+                  '<div class="forecast-icon">' + wmo.icon + '</div>' +
+                  '<div class="forecast-temps">' +
+                    '<span class="temp-max">' + tMax + '°</span>' +
+                    '<span class="temp-min">' + tMin + '°</span>' +
+                  '</div>' +
+                '</div>';
+      }
+      document.getElementById("forecast-container").innerHTML = html;
+    }
+
+    // Lancement et rafraîchissement toutes les 30 minutes
+    fetchWeather();
+    setInterval(fetchWeather, 30 * 60 * 1000);
+  </script>
+</body>
+</html>
